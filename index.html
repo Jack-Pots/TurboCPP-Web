@@ -25,6 +25,15 @@
             font-size: 12px;
             color: #fff; /* white text */
         }
+
+        #credit-bar .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #fff;
+        }
     </style>
 
     <!-- js-dos style sheet -->
@@ -44,9 +53,18 @@
     </script>
 
     <div id="credit-bar">
+        <span class="close">&times;</span>
         <p>Credit to <a href="https://js-dos.com" target="_blank">JS-Dos team</a> for Everything,</p>
         <p><a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank">AvinashReddy3108</a> and 
         <a href="https://github.com/vineetchoudhary/TurboCPP" target="_blank">vineetchoudhary</a> for the DOSBox projects</p>
     </div>
+
+    <script>
+        document.getElementById("credit-bar").addEventListener("click", function(event) {
+            if (event.target.classList.contains("close")) {
+                this.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
