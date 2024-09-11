@@ -18,6 +18,7 @@
         #dos {
             width: 100%;
             height: 100%;
+            transition: height 0.3s ease;
         }
 
         #credit-bar {
@@ -31,15 +32,36 @@
             font-size: 12px;
             color: #fff;
             z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        #credit-bar.hidden {
+            transform: translateY(100%);
         }
 
         #credit-bar .close {
             position: absolute;
-            top: 10px;
+            top: 5px;
             right: 10px;
             cursor: pointer;
-            font-size: 18px;
-            color: #fff;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #credit-bar .close:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        #credit-bar .close::before {
+            content: "\00d7";
+            font-size: 24px;
+            line-height: 1;
         }
 
         #browser-warning {
@@ -67,7 +89,7 @@
     <main id="dos" role="main"></main>
 
     <footer id="credit-bar">
-        <span class="close" aria-label="Close credits">&times;</span>
+        <span class="close" aria-label="Close credits"></span>
         <p>By <a href="https://sounddrill31.github.io/" target="_blank" rel="noopener noreferrer">Souhrud Reddy</a></p>
         <p>Credit to <a href="https://js-dos.com" target="_blank" rel="noopener noreferrer">JS-Dos team</a> for Everything,</p>
         <p><a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank" rel="noopener noreferrer">AvinashReddy3108</a> and 
@@ -75,16 +97,37 @@
     </footer>
 
     <script>
-        Dos(document.getElementById("dos"), {
+        const dosElement = document.getElementById("dos");
+        const creditBar = document.getElementById("credit-bar");
+        const closeButton = creditBar.querySelector(".close");
+
+        function adjustDosHeight() {
+            const creditBarHeight = creditBar.offsetHeight;
+            dosElement.style.height = `calc(100% - ${creditBarHeight}px)`;
+        }
+
+        function toggleCreditBar() {
+            creditBar.classList.toggle("hidden");
+            if (creditBar.classList.contains("hidden")) {
+                dosElement.style.height = "100%";
+            } else {
+                adjustDosHeight();
+            }
+        }
+
+        // Initial adjustment
+        adjustDosHeight();
+
+        // Adjust on window resize
+        window.addEventListener("resize", adjustDosHeight);
+
+        // Toggle credit bar on close button click
+        closeButton.addEventListener("click", toggleCreditBar);
+
+        Dos(dosElement, {
             url: "https://turboc.pages.dev/turbocpp-831b2f5.jsdos",
         }).then((ci) => {
             console.log("DOS initialized");
-        });
-
-        document.getElementById("credit-bar").addEventListener("click", function(event) {
-            if (event.target.classList.contains("close")) {
-                this.style.display = "none";
-            }
         });
 
         var userAgent = navigator.userAgent;
