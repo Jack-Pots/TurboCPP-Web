@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Turbo C++ Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Turbo C++ Web - Run Turbo C++ in your browser using JS-DOS. Experience nostalgic programming with modern convenience.">
+    <meta name="keywords" content="Turbo C++, JS-DOS, online IDE, programming, nostalgia">
+    <meta name="author" content="Souhrud Reddy">
+    <title>Turbo C++ Web - Online Nostalgic Programming Experience</title>
 
     <style>
         html, body {
             height: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         #dos {
@@ -15,15 +21,16 @@
         }
 
         #credit-bar {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #032B44; /* dark blue */
+            background-color: #032B44;
             padding: 10px;
             text-align: center;
             font-size: 12px;
-            color: #fff; /* white text */
+            color: #fff;
+            z-index: 1000;
         }
 
         #credit-bar .close {
@@ -35,63 +42,58 @@
             color: #fff;
         }
 
-        /* Add styles for the popup message */
         #browser-warning {
-            position: absolute;
+            position: fixed;
             top: 10px;
             right: 10px;
-            background-color: #fff; /* white background */
+            background-color: #fff;
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            color: #000; /* black text */
+            color: #000;
+            z-index: 1001;
         }
 
         #browser-warning:hover {
-            background-color: #FFA07A; /* darker yellow-orange */
+            background-color: #FFA07A;
         }
     </style>
 
-    <!-- js-dos style sheet -->
     <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
-
-    <!-- js-dos -->
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
 </head>
 <body>
+    <main id="dos" role="main"></main>
 
-    <div id="dos" style="width: 100%; height: 100%"></div>
+    <footer id="credit-bar">
+        <span class="close" aria-label="Close credits">&times;</span>
+        <p>By <a href="https://sounddrill31.github.io/" target="_blank" rel="noopener noreferrer">Souhrud Reddy</a></p>
+        <p>Credit to <a href="https://js-dos.com" target="_blank" rel="noopener noreferrer">JS-Dos team</a> for Everything,</p>
+        <p><a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank" rel="noopener noreferrer">AvinashReddy3108</a> and 
+        <a href="https://github.com/vineetchoudhary/TurboCPP" target="_blank" rel="noopener noreferrer">vineetchoudhary</a> for the DOSBox wrapper projects</p>
+    </footer>
 
     <script>
         Dos(document.getElementById("dos"), {
             url: "https://turboc.pages.dev/turbocpp-831b2f5.jsdos",
+        }).then((ci) => {
+            console.log("DOS initialized");
         });
-    </script>
 
-    <div id="credit-bar">
-        <span class="close">&times;</span>
-        <p>By <a href="https://sounddrill31.github.io/" target="_blank">Souhrud Reddy</a></p>
-        <p>Credit to <a href="https://js-dos.com" target="_blank">JS-Dos team</a> for Everything,</p>
-        <p><a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank">AvinashReddy3108</a> and 
-        <a href="https://github.com/vineetchoudhary/TurboCPP" target="_blank">vineetchoudhary</a> for the DOSBox wrapper projects</p>
-    </div>
-
-    <script>
         document.getElementById("credit-bar").addEventListener("click", function(event) {
             if (event.target.classList.contains("close")) {
                 this.style.display = "none";
             }
         });
 
-        // Add code to detect browser type and display popup message
         var userAgent = navigator.userAgent;
         var isChromium = userAgent.indexOf("Chromium") > -1 || userAgent.indexOf("Chrome") > -1;
 
         if (!isChromium) {
             var warningMessage = document.createElement("div");
             warningMessage.id = "browser-warning";
-            warningMessage.innerHTML = "<p>Non Chromium Browsers are not fully supported</p><p>Plus and Equals symbols not working on firefox</p>";
+            warningMessage.innerHTML = "<p>Non Chromium Browsers are not fully supported</p><p>Plus and Equals symbols not working on Firefox</p>";
             document.body.appendChild(warningMessage);
 
             warningMessage.addEventListener("click", function() {
@@ -100,7 +102,7 @@
 
             setTimeout(function() {
                 warningMessage.style.display = "none";
-            }, 45000); // hide after 45 seconds
+            }, 45000);
         }
     </script>
 </body>
