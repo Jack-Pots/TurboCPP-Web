@@ -9,28 +9,110 @@
     <title>Turbo C++ Web - Online Nostalgic Programming Experience</title>
 
     <style>
-        html, body {
+        body, html {
             height: 100%;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #032B44;
+            color: white !important;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, p {
+            color: inherit !important;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .tagline {
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #dos-container {
+            width: 90%;
+            max-width: 640px;
+            aspect-ratio: 4 / 3;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         #dos {
             width: 100%;
             height: 100%;
-            transition: height 0.3s ease;
+        }
+
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #032B44 !important;
+        }
+
+        .content-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .content-section h3 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #032B44 !important;
         }
 
         #credit-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
             background-color: #032B44;
+            color: white !important;
             padding: 10px;
             text-align: center;
             font-size: 12px;
-            color: #fff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
             transition: transform 0.3s ease;
         }
@@ -39,7 +121,16 @@
             transform: translateY(100%);
         }
 
-        #credit-bar .close {
+        #credit-bar a {
+            color: #ADD8E6 !important;
+            text-decoration: none;
+        }
+
+        #credit-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .close {
             position: absolute;
             top: 5px;
             right: 10px;
@@ -48,17 +139,16 @@
             height: 30px;
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            transition: background-color 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #credit-bar .close:hover {
+        .close:hover {
             background-color: rgba(255, 255, 255, 0.4);
         }
 
-        #credit-bar .close::before {
+        .close::before {
             content: "\00d7";
             font-size: 24px;
             line-height: 1;
@@ -68,17 +158,24 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            background-color: #fff;
+            background-color: #FFA07A;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            color: #000;
+            color: #000 !important;
             z-index: 1001;
+            max-width: 80%;
         }
 
-        #browser-warning:hover {
-            background-color: #FFA07A;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
         }
     </style>
 
@@ -86,42 +183,55 @@
     <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
 </head>
 <body>
-    <main id="dos" role="main"></main>
+    <div class="container">
+        <header>
+            <h1>Turbo C++ Web - Run Turbo C++ in your browser using JS-DOS</h1>
+            <p class="tagline">Experience nostalgic programming with modern convenience</p>
+        </header>
 
-    <footer id="credit-bar">
-        <span class="close" aria-label="Close credits"></span>
-        <p>By <a href="https://sounddrill31.github.io/" target="_blank" rel="noopener noreferrer">Souhrud Reddy</a></p>
-        <p>Credit to <a href="https://js-dos.com" target="_blank" rel="noopener noreferrer">JS-Dos team</a> for Everything,</p>
-        <p><a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank" rel="noopener noreferrer">AvinashReddy3108</a> and 
-        <a href="https://github.com/vineetchoudhary/TurboCPP" target="_blank" rel="noopener noreferrer">vineetchoudhary</a> for the DOSBox wrapper projects</p>
-    </footer>
+        <main>
+            <div id="dos-container">
+                <div id="dos"></div>
+            </div>
+            <div class="content">
+                <h2>About This Project</h2>
+                <div class="content-section">
+                    <h3>Project Origin</h3>
+                    <p>As a BCA student, I was introduced to Turbo C++ in my first semester. Recognizing the challenges that new students might face in setting up this classic programming environment, I decided to create this web-based version of Turbo C++ as a gift to my juniors and anyone interested in experiencing this piece of programming history.</p>
+                </div>
+                <div class="content-section">
+                    <h3>Technology Behind the Project</h3>
+                    <p>Using the power of JS-DOS, I've wrapped Turbo C++ in a browser-friendly format. This allows you to use Turbo C++ without the need for installation or configuration. It's perfect for quick coding sessions, learning the basics of C++, or simply indulging in some programming nostalgia.</p>
+                </div>
+                <div class="content-section">
+                    <h3>Project Goals</h3>
+                    <p>This project aims to bridge the gap between past and present, offering a blend of classic programming tools with the convenience of modern web technologies. Whether you're a student required to use Turbo C++ for your coursework, a seasoned programmer taking a trip down memory lane, or someone curious about the tools that shaped the world of programming, this web application is for you.</p>
+                </div>
+                <div class="content-section">
+                    <h3>Get Started</h3>
+                    <p>Enjoy your journey into the world of Turbo C++, now just a click away!</p>
+                </div>
+            </div>
+        </main>
+
+        <footer id="credit-bar">
+            <span class="close" aria-label="Close credits"></span>
+            <p>Created by <a href="https://sounddrill31.github.io/" target="_blank" rel="noopener noreferrer">Souhrud Reddy</a></p>
+            <p>Powered by <a href="https://js-dos.com" target="_blank" rel="noopener noreferrer">JS-DOS</a></p>
+            <p>Special thanks to <a href="https://github.com/AvinashReddy3108/TurboCPP4Linux" target="_blank" rel="noopener noreferrer">AvinashReddy3108</a> and 
+            <a href="https://github.com/vineetchoudhary/TurboCPP" target="_blank" rel="noopener noreferrer">vineetchoudhary</a> for their DOSBox wrapper projects</p>
+        </footer>
+    </div>
 
     <script>
         const dosElement = document.getElementById("dos");
         const creditBar = document.getElementById("credit-bar");
         const closeButton = creditBar.querySelector(".close");
 
-        function adjustDosHeight() {
-            const creditBarHeight = creditBar.offsetHeight;
-            dosElement.style.height = `calc(100% - ${creditBarHeight}px)`;
-        }
-
         function toggleCreditBar() {
             creditBar.classList.toggle("hidden");
-            if (creditBar.classList.contains("hidden")) {
-                dosElement.style.height = "100%";
-            } else {
-                adjustDosHeight();
-            }
         }
 
-        // Initial adjustment
-        adjustDosHeight();
-
-        // Adjust on window resize
-        window.addEventListener("resize", adjustDosHeight);
-
-        // Toggle credit bar on close button click
         closeButton.addEventListener("click", toggleCreditBar);
 
         Dos(dosElement, {
