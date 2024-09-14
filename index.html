@@ -61,12 +61,15 @@
 
         #dos-container {
             width: 90%;
-            max-width: 640px;
-            aspect-ratio: 4 / 3;
+            max-width: 768px;
+            aspect-ratio: 215 / 122;
             margin: 20px auto;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #dos {
@@ -175,6 +178,13 @@
 
             .content {
                 padding: 15px;
+            }
+        }
+
+        @media (orientation: landscape) {
+            #dos-container {
+                padding: 0 10px;
+                box-sizing: border-box;
             }
         }
     </style>
